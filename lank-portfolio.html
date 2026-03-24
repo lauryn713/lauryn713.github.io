@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LANK — Lauryn Ashley Nicole King</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --ink: #0D0D0D;
+    --gold: #C9A84C;
+    --gold-light: #E8D5A0;
+    --rust: #B85C38;
+    --slate: #2A2A35;
+    --muted: #8A8478;
+    --film: #1A1A24;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+    mix-blend-mode: multiply;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 40px; height: 40px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.25s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+    opacity: 0.6;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* GRAIN OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 48px;
+    mix-blend-mode: multiply;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 0.35em;
+    color: var(--ink);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 3px;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.4s ease;
+  }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 120px 0 80px 48px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: clamp(4rem, 8vw, 8rem);
+    line-height: 0.9;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  .hero-descriptor {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.5;
+    max-width: 380px;
+    margin-bottom: 48px;
+  }
+
+  .hero-cta-row {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 16px 32px;
+    border: 2px solid var(--ink);
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(-100%);
+    transition: transform 0.35s ease;
+  }
+  .btn-primary:hover::before { transform: translateX(0); }
+  .btn-primary span { position: relative; z-index: 1; }
+  .btn-primary:hover { color: var(--ink); border-color: var(--gold); }
+
+  .btn-ghost {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s;
+  }
+  .btn-ghost:hover { color: var(--ink); }
+  .btn-ghost .arrow { transition: transform 0.3s; }
+  .btn-ghost:hover .arrow { transform: translateX(6px); }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    filter: sepia(15%) contrast(1.05);
+    transition: transform 8s ease;
+  }
+  .hero-right:hover .hero-photo { transform: scale(1.04); }
+
+  .hero-photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--cream) 0%, transparent 30%),
+                linear-gradient(to top, var(--cream) 0%, transparent 20%);
+  }
+
+  .hero-badge {
+    position: absolute;
+    bottom: 60px;
+    right: 40px;
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    border: 1px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    animation: spin 20s linear infinite;
+    z-index: 3;
+  }
+  .hero-badge-text {
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    line-height: 1.8;
+  }
+  .hero-badge-center {
+    position: absolute;
+    bottom: 113px;
+    right: 93px;
+    width: 18px; height: 18px;
+    background: var(--gold);
+    border-radius: 50%;
+    z-index: 4;
+  }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 5;
+  }
+  .hero-scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0%, 100% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+    50% { opacity: 0.4; }
+  }
+  .hero-scroll-label {
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    writing-mode: vertical-lr;
+  }
+
+  /* TICKER */
+  .ticker {
+    background: var(--ink);
+    color: var(--gold-light);
+    padding: 14px 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .ticker-inner {
+    display: flex;
+    gap: 0;
+    animation: ticker 25s linear infinite;
+    white-space: nowrap;
+  }
+  .ticker-item {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding-right: 80px;
+    flex-shrink: 0;
+  }
+  .ticker-dot {
+    color: var(--rust);
+    margin-right: 80px;
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SECTION BASE */
+  section { position: relative; }
+  .section-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .section-label::before {
+    content: attr(data-num);
+    font-size: 0.5rem;
+    opacity: 0.5;
+  }
+
+  /* WORK SECTION */
+  .work {
+    padding: 120px 48px;
+    background: var(--cream);
+  }
+  .work-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 72px;
+  }
+  .work-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .work-title em { font-style: italic; color: var(--rust); }
+
+  .work-view-all {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--muted);
+    padding-bottom: 2px;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .work-view-all:hover { color: var(--gold); border-color: var(--gold); }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 2px;
+  }
+
+  .work-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--slate);
+    cursor: none;
+  }
+  .work-card:first-child {
+    grid-row: 1 / 3;
+  }
+  .work-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                filter 0.8s ease;
+    filter: sepia(10%) brightness(0.85);
+    min-height: 300px;
+  }
+  .work-card:first-child img { min-height: 600px; }
+  .work-card:hover img {
+    transform: scale(1.06);
+    filter: sepia(0%) brightness(0.7);
+  }
+  .work-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13,13,13,0.9) 0%, transparent 60%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 32px;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.5s ease;
+  }
+  .work-card:hover .work-card-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .work-card-info {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 24px 28px;
+    background: linear-gradient(to top, rgba(13,13,13,0.85) 0%, transparent 100%);
+  }
+  .work-card-tag {
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .work-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--cream);
+    line-height: 1.2;
+  }
+  .work-card-desc {
+    font-size: 0.6rem;
+    color: rgba(245,240,232,0.6);
+    line-height: 1.7;
+    margin-top: 8px;
+    letter-spacing: 0.05em;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+  .work-card:hover .work-card-desc { max-height: 80px; }
+
+  /* ABOUT / SPLIT */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 80vh;
+    background: var(--film);
+  }
+  .about-left {
+    padding: 100px 80px 100px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .about-eyebrow {
+    font-size: 0.55rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .about-eyebrow::before { content: '02'; opacity: 0.4; font-size: 0.5rem; }
+  .about-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3.5rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 32px;
+  }
+  .about-title strong {
+    font-weight: 600;
+    font-style: normal;
+    color: var(--gold-light);
+  }
+  .about-body {
+    font-size: 0.75rem;
+    line-height: 2;
+    color: rgba(245,240,232,0.55);
+    max-width: 460px;
+    margin-bottom: 48px;
+    letter-spacing: 0.03em;
+  }
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    padding-top: 48px;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.35);
+    line-height: 1.6;
+  }
+
+  .about-right {
+    position: relative;
+    overflow: hidden;
+  }
+  .about-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    filter: grayscale(20%) sepia(20%);
+  }
+  .about-photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to left, transparent 60%, var(--film) 100%);
+  }
+  .about-quote {
+    position: absolute;
+    top: 48px;
+    right: 32px;
+    width: 200px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--cream);
+    line-height: 1.6;
+    text-align: right;
+    opacity: 0.7;
+  }
+  .about-quote::before {
+    content: '"';
+    font-size: 4rem;
+    line-height: 0.5;
+    display: block;
+    color: var(--gold);
+    margin-bottom: 12px;
+    text-align: right;
+  }
+
+  /* SKILLS / CAPABILITIES */
+  .capabilities {
+    padding: 120px 48px;
+    background: var(--cream);
+  }
+  .cap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 80px;
+    gap: 40px;
+  }
+  .cap-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .cap-title em { font-style: italic; color: var(--rust); }
+  .cap-intro {
+    max-width: 360px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    padding-top: 8px;
+  }
+
+  .cap-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .cap-card {
+    background: var(--slate);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s ease;
+  }
+  .cap-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease;
+  }
+  .cap-card:hover::before { transform: scaleX(1); }
+  .cap-card:hover { background: #1e1e2a; }
+  .cap-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: rgba(201,168,76,0.12);
+    line-height: 1;
+    margin-bottom: 20px;
+    transition: color 0.4s;
+  }
+  .cap-card:hover .cap-num { color: rgba(201,168,76,0.25); }
+  .cap-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  .cap-desc {
+    font-size: 0.65rem;
+    color: rgba(245,240,232,0.45);
+    line-height: 1.9;
+    letter-spacing: 0.03em;
+  }
+  .cap-tags {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .cap-tag {
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 4px 10px;
+    transition: all 0.3s;
+  }
+  .cap-card:hover .cap-tag {
+    border-color: rgba(201,168,76,0.7);
+  }
+
+  /* STUDIOS */
+  .studios {
+    background: var(--ink);
+    padding: 80px 48px;
+    overflow: hidden;
+  }
+  .studios-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.3);
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .studios-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+  .studio-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 2.5vw, 1.8rem);
+    font-weight: 900;
+    color: rgba(245,240,232,0.12);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.4s ease;
+    user-select: none;
+  }
+  .studio-name:hover { color: rgba(201,168,76,0.6); }
+
+  /* AWARDS */
+  .awards {
+    padding: 100px 48px;
+    background: var(--cream);
+    border-top: 1px solid rgba(13,13,13,0.08);
+  }
+  .awards-header {
+    margin-bottom: 64px;
+  }
+  .awards-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3.5rem);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .awards-title em { font-style: italic; color: var(--rust); }
+
+  .awards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .award-item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    align-items: center;
+    gap: 32px;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(13,13,13,0.08);
+    transition: padding-left 0.3s ease;
+  }
+  .award-item:hover { padding-left: 12px; }
+  .award-year {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+  }
+  .award-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .award-org {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold-light);
+    padding: 4px 12px;
+    white-space: nowrap;
+  }
+
+  /* CONTACT */
+  .contact {
+    background: var(--film);
+    padding: 140px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact::before {
+    content: 'LANK';
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 22vw;
+    font-weight: 900;
+    color: rgba(201,168,76,0.03);
+    letter-spacing: -0.05em;
+    user-select: none;
+    pointer-events: none;
+  }
+  .contact-inner {
+    max-width: 700px;
+    position: relative;
+    z-index: 2;
+  }
+  .contact-eyebrow {
+    font-size: 0.55rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .contact-eyebrow::before { content: '05'; opacity: 0.4; font-size: 0.5rem; }
+  .contact-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 6rem);
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 0.9;
+    margin-bottom: 32px;
+    letter-spacing: -0.02em;
+  }
+  .contact-title em {
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+  }
+  .contact-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: rgba(245,240,232,0.5);
+    line-height: 1.7;
+    margin-bottom: 56px;
+    max-width: 480px;
+  }
+  .contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+  }
+  .contact-email {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--gold-light);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+    padding-bottom: 4px;
+    transition: border-color 0.3s;
+  }
+  .contact-email:hover { border-color: var(--gold); }
+  .contact-divider {
+    color: rgba(245,240,232,0.2);
+    font-size: 0.8rem;
+  }
+  .contact-social {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.35);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .contact-social:hover { color: var(--gold); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 32px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem;
+    font-weight: 900;
+    letter-spacing: 0.3em;
+    color: rgba(245,240,232,0.3);
+    text-transform: uppercase;
+  }
+  .footer-copy {
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    color: rgba(245,240,232,0.2);
+  }
+
+  /* ANIMATIONS ON SCROLL */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .fade-up:nth-child(2) { transition-delay: 0.15s; }
+  .fade-up:nth-child(3) { transition-delay: 0.3s; }
+  .fade-up:nth-child(4) { transition-delay: 0.45s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 24px 24px; }
+    .nav-links { gap: 20px; }
+
+    .hero { grid-template-columns: 1fr; }
+    .hero-right {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-left {
+      z-index: 2;
+      padding: 140px 24px 80px;
+      background: linear-gradient(to right, rgba(245,240,232,0.95) 0%, rgba(245,240,232,0.6) 100%);
+    }
+    .hero-badge, .hero-badge-center { display: none; }
+
+    .work { padding: 80px 24px; }
+    .work-grid { grid-template-columns: 1fr; }
+    .work-card:first-child { grid-row: auto; }
+    .work-card img { min-height: 280px !important; }
+
+    .about { grid-template-columns: 1fr; }
+    .about-right { height: 50vh; }
+    .about-left { padding: 80px 24px; }
+
+    .cap-grid { grid-template-columns: 1fr; gap: 2px; }
+    .cap-header { flex-direction: column; }
+    .capabilities { padding: 80px 24px; }
+
+    .awards { padding: 80px 24px; }
+    .award-item { grid-template-columns: 60px 1fr; }
+    .award-org { display: none; }
+
+    .contact { padding: 100px 24px; }
+    footer { flex-direction: column; gap: 12px; padding: 24px; }
+
+    .studios { padding: 60px 24px; }
+    .studios-row { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">LANK</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#capabilities">Capabilities</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Award-Winning Creative — Weber Shandwick NY</p>
+    <h1 class="hero-name">
+      Lauryn<br>
+      <em>Ashley</em><br>
+      Nicole<br>
+      King
+    </h1>
+    <p class="hero-descriptor">
+      Screenwriter. Filmmaker. Copywriter.<br>
+      Telling stories that connect culture<br>to canvas — and ink to screen.
+    </p>
+    <div class="hero-cta-row">
+      <a href="#work" class="btn-primary"><span>View My Work</span></a>
+      <a href="#contact" class="btn-ghost">Let's Connect <span class="arrow">→</span></a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img
+      class="hero-photo"
+      src="https://images.squarespace-cdn.com/content/v1/650b124e2ebd2346faaa87ac/8632d185-1944-498e-bf5c-f0b9f91b9057/IMG_4144.jpg"
+      alt="Lauryn Ashley Nicole King"
+    >
+    <div class="hero-photo-overlay"></div>
+    <div class="hero-badge">
+      <p class="hero-badge-text">Filmmaker<br>·<br>Writer<br>·<br>Creative<br>·<br>Filmmaker<br>·<br>Writer<br>·<br>Creative<br>·</p>
+    </div>
+    <div class="hero-badge-center"></div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <span class="hero-scroll-label">Scroll</span>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner" id="ticker">
+    <span class="ticker-item">Screenwriter</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Filmmaker</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Copywriter</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Creative Strategist</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Content Creator</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Award-Winning</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Weber Shandwick</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Cannes Lions</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Storyteller</span><span class="ticker-dot">✦</span>
+    <!-- Duplicate for loop -->
+    <span class="ticker-item">Screenwriter</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Filmmaker</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Copywriter</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Creative Strategist</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Content Creator</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Award-Winning</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Weber Shandwick</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Cannes Lions</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">Storyteller</span><span class="ticker-dot">✦</span>
+  </div>
+</div>
+
+<!-- WORK -->
+<section class="work" id="work">
+  <div class="work-header">
+    <h2 class="work-title">Selected<br><em>Works</em></h2>
+    <a href="https://www.laurynashleynicoleking.com/copywriting" target="_blank" class="work-view-all">View All Projects →</a>
+  </div>
+
+  <div class="work-grid">
+    <!-- Featured -->
+    <div class="work-card fade-up">
+      <img
+        src="https://images.squarespace-cdn.com/content/v1/650b124e2ebd2346faaa87ac/a95369ec-ef55-451b-a88e-fab188049e71/LK+VERSION_Eat+The+Rich_CannesYL-2025_FINAL_Page_07.png"
+        alt="Cannes Young Lions"
+      >
+      <div class="work-card-info">
+        <p class="work-card-tag">Copywriting · Cannes Lions</p>
+        <h3 class="work-card-title">Cannes Young Lions<br>— Eat The Rich</h3>
+        <p class="work-card-desc">Award-winning campaign concept developed for Cannes Young Lions 2025. Provocative creative strategy meets sharp copywriting.</p>
+      </div>
+    </div>
+
+    <!-- Top right -->
+    <div class="work-card fade-up">
+      <img
+        src="https://images.squarespace-cdn.com/content/v1/650b124e2ebd2346faaa87ac/0a846811-96de-4d78-9c7b-9c960d0e244b/Screenshot+2025-10-20+at+4.11.46%E2%80%AFPM.png"
+        alt="Excedrin Escape the Noise"
+      >
+      <div class="work-card-info">
+        <p class="work-card-tag">Copywriting · Brand</p>
+        <h3 class="work-card-title">Excedrin: Escape the Noise</h3>
+        <p class="work-card-desc">Brand campaign copy connecting product benefit to cultural tension.</p>
+      </div>
+    </div>
+
+    <!-- Bottom right -->
+    <div class="work-card fade-up">
+      <img
+        src="https://images.squarespace-cdn.com/content/v1/650b124e2ebd2346faaa87ac/1695234325415-SA5J8ZMD6YADRLGBJGYG/Selects+-+02.02_14_51_17.Still009.JPG"
+        alt="Church Girl 2023"
+      >
+      <div class="work-card-info">
+        <p class="work-card-tag">Filmmaker · Short Film</p>
+        <h3 class="work-card-title">Church Girl 2023</h3>
+        <p class="work-card-desc">Original short film exploring faith, identity, and Black womanhood.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-left">
+    <p class="about-eyebrow">About</p>
+    <h2 class="about-title">
+      A storyteller<br>
+      who <strong>bridges culture</strong><br>
+      & the camera.
+    </h2>
+    <p class="about-body">
+      Words have always been my happy place — where I connect the dots of life. Through personal narratives and documentary, I form stories that reflect my world and my upbringing, with the hope they'll connect with others. My ambition, positivity and desire to see projects through to completion are the defining factors behind my work.<br><br>
+      By day, you'll find me ideating brand activations at <strong style="color:var(--gold-light)">Weber Shandwick New York</strong> — crafting campaigns that resonate with culture. By night, behind the lens.
+    </p>
+    <div class="about-stats">
+      <div>
+        <p class="stat-num">4+</p>
+        <p class="stat-label">Original<br>Films</p>
+      </div>
+      <div>
+        <p class="stat-num">2×</p>
+        <p class="stat-label">Cannes<br>Entry</p>
+      </div>
+      <div>
+        <p class="stat-num">∞</p>
+        <p class="stat-label">Stories<br>to Tell</p>
+      </div>
+    </div>
+  </div>
+  <div class="about-right">
+    <img
+      class="about-photo"
+      src="https://images.squarespace-cdn.com/content/v1/650b124e2ebd2346faaa87ac/8632d185-1944-498e-bf5c-f0b9f91b9057/IMG_4144.jpg"
+      alt="Lauryn Ashley Nicole King"
+    >
+    <div class="about-photo-overlay"></div>
+    <blockquote class="about-quote">
+      Stories that reflect my world, told so they connect with yours.
+    </blockquote>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="capabilities" id="capabilities">
+  <div class="cap-header">
+    <h2 class="cap-title">What I<br><em>Bring</em></h2>
+    <p class="cap-intro">
+      Equal parts creative strategist and on-the-ground filmmaker — I speak both languages fluently.
+    </p>
+  </div>
+  <div class="cap-grid">
+    <div class="cap-card fade-up">
+      <p class="cap-num">01</p>
+      <h3 class="cap-name">Screenwriting &amp; Narrative</h3>
+      <p class="cap-desc">Original scripts, short films, and narrative long-form content — from concept to final draft. Experienced in developing stories rooted in Black culture, faith, identity, and community.</p>
+      <div class="cap-tags">
+        <span class="cap-tag">Short Film</span>
+        <span class="cap-tag">TikTok Series</span>
+        <span class="cap-tag">Documentary</span>
+      </div>
+    </div>
+    <div class="cap-card fade-up">
+      <p class="cap-num">02</p>
+      <h3 class="cap-name">Copywriting &amp; Brand Voice</h3>
+      <p class="cap-desc">Sharp, culturally resonant copy for major brands. Campaign concepts, taglines, and creative briefs built for engagement and impact at the highest level of advertising competition.</p>
+      <div class="cap-tags">
+        <span class="cap-tag">Cannes Lions</span>
+        <span class="cap-tag">Brand Campaigns</span>
+        <span class="cap-tag">Social Copy</span>
+      </div>
+    </div>
+    <div class="cap-card fade-up">
+      <p class="cap-num">03</p>
+      <h3 class="cap-name">Content Strategy &amp; Creation</h3>
+      <p class="cap-desc">From concept to camera — developing content that lives at the intersection of culture and platform. Built for Gen Z audiences and the social-first world of streaming and studio marketing.</p>
+      <div class="cap-tags">
+        <span class="cap-tag">TikTok</span>
+        <span class="cap-tag">YouTube</span>
+        <span class="cap-tag">Instagram</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STUDIOS ASPIRATIONS -->
+<div class="studios">
+  <p class="studios-label">Ready to create for</p>
+  <div class="studios-row">
+    <span class="studio-name">Warner Bros</span>
+    <span class="studio-name">Netflix</span>
+    <span class="studio-name">Paramount</span>
+    <span class="studio-name">YouTube</span>
+    <span class="studio-name">A24</span>
+    <span class="studio-name">Hulu</span>
+  </div>
+</div>
+
+<!-- AWARDS -->
+<section class="awards" id="awards">
+  <div class="awards-header">
+    <p class="section-label" data-num="04">Recognition</p>
+    <h2 class="awards-title">Awards &amp;<br><em>Recognition</em></h2>
+  </div>
+  <div class="awards-list">
+    <div class="award-item fade-up">
+      <span class="award-year">2025</span>
+      <span class="award-name">Cannes Young Lions — "Eat The Rich" Campaign</span>
+      <span class="award-org">Cannes Lions</span>
+    </div>
+    <div class="award-item fade-up">
+      <span class="award-year">2025</span>
+      <span class="award-name">Vagina Privacy Network — Weber Shandwick</span>
+      <span class="award-org">Cannes Lions</span>
+    </div>
+    <div class="award-item fade-up">
+      <span class="award-year">2025</span>
+      <span class="award-name">Excedrin: Tis Headache Relief</span>
+      <span class="award-org">Campaign Work</span>
+    </div>
+    <div class="award-item fade-up">
+      <span class="award-year">2023</span>
+      <span class="award-name">Church Girl — Original Short Film</span>
+      <span class="award-org">Filmmaker</span>
+    </div>
+    <div class="award-item fade-up">
+      <span class="award-year">2023</span>
+      <span class="award-name">East of Eden — Documentary</span>
+      <span class="award-org">Filmmaker</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <p class="contact-eyebrow">Get In Touch</p>
+    <h2 class="contact-title">
+      Let's make<br>
+      <em>something real.</em>
+    </h2>
+    <p class="contact-body">
+      Looking for a screenwriter to pen the next viral TikTok series? Need copy and creative activations that resonate with culture? Have a story you've always wanted to tell?
+    </p>
+    <div class="contact-links">
+      <a href="mailto:hello@laurynashleynicoleking.com" class="contact-email">hello@laurynashleynicoleking.com</a>
+      <span class="contact-divider">·</span>
+      <a href="https://www.laurynashleynicoleking.com" target="_blank" class="contact-social">Portfolio ↗</a>
+      <span class="contact-divider">·</span>
+      <a href="#" class="contact-social">LinkedIn ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">LANK</span>
+  <span class="footer-copy">© 2026 Lauryn Ashley Nicole King — All Rights Reserved</span>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = -100, my = -100, rx = -100, ry = -100;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .work-card, .cap-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px';
+      cursor.style.height = '20px';
+      ring.style.width = '60px';
+      ring.style.height = '60px';
+      ring.style.opacity = '0.3';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '12px';
+      cursor.style.height = '12px';
+      ring.style.width = '40px';
+      ring.style.height = '40px';
+      ring.style.opacity = '0.6';
+    });
+  });
+
+  // Scroll fade-in
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Nav: blend mode change on dark sections
+  const nav = document.querySelector('nav');
+  const darkSections = document.querySelectorAll('.about, .studios, .contact, footer');
+  const navObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        nav.style.mixBlendMode = 'normal';
+        nav.querySelector('.nav-logo').style.color = '#F5F0E8';
+        nav.querySelectorAll('.nav-links a').forEach(a => a.style.color = '#F5F0E8');
+      } else {
+        nav.style.mixBlendMode = 'multiply';
+        nav.querySelector('.nav-logo').style.color = '';
+        nav.querySelectorAll('.nav-links a').forEach(a => a.style.color = '');
+      }
+    });
+  }, { threshold: 0.3 });
+  darkSections.forEach(s => navObserver.observe(s));
+</script>
+</body>
+</html>
